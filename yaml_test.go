@@ -183,7 +183,7 @@ func TestMarshal(t *testing.T) {
 	f32String := strconv.FormatFloat(math.MaxFloat32, 'g', -1, 32)
 	f64String := strconv.FormatFloat(math.MaxFloat64, 'g', -1, 64)
 	s := MarshalTest{"a", math.MaxInt64, math.MaxFloat32, math.MaxFloat64}
-	e := []byte(fmt.Sprintf("A: a\nB: %d\nC: %s\nD: %s\n", math.MaxInt64, f32String, f64String))
+	e := []byte(fmt.Sprintf("A: a\nB: %d\nC: %s\nD: %s\n", int64(math.MaxInt64), f32String, f64String))
 
 	y, err := Marshal(s)
 	if err != nil {
@@ -411,8 +411,8 @@ func TestUnmarshal(t *testing.T) {
 		// decoding integers
 		"decode 2^53 + 1 into int": {
 			encoded:    []byte("9007199254740993"),
-			decodeInto: new(int),
-			decoded:    9007199254740993,
+			decodeInto: new(int64),
+			decoded:    int64(9007199254740993),
 		},
 		"decode 2^53 + 1 into interface": {
 			encoded:    []byte("9007199254740993"),
